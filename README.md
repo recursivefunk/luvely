@@ -3,7 +3,7 @@
 
 Yet another logging thing. It's logging the way I want/like to use logging. Use it, or not - whatever.
 
-```
+```javascript
 var logger = require( '../index' ).getInstance();
 
 // normal logging mode
