@@ -1,6 +1,8 @@
 ## PIMP
 ###Pretty and Intuitive Multi-level-logging Prototype
 
+Yet another logging thing. It's logging the way I want/like to use logging. Use it, or not - whatever.
+
 ```
 var logger = require( '../index' ).getInstance();
 
