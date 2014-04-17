@@ -57,6 +57,3 @@ console.log( '\n' );
 ![Alt text](logging-out.png "Logging Out")
 
 The above code is taken from test/test.js - run it to see PIMP in action. More features (and real tests) coming soon
-
-*DISCLAIMER*
-Project name is for giggles. I do NOT support the exploitation of women.
