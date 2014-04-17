@@ -1,0 +1,29 @@
+
+var logger = require( '../index' ).getInstance();
+
+// normal logging mode
+console.log( '\n' );
+logger.info( 'Here\'s some info ' );
+logger.debug( 'Debugging this thang ' );
+logger.warn( 'Betta have my money!' );
+logger.error( 'Ooops!' );
+
+console.log( '\n******************************************************\n');
+// selectively enable verbose to some levels
+logger.verbose( 'error', 'debug' );
+logger.info( 'Here\'s some info' );
+logger.debug( 'Debugging this thang (verbose)' );
+logger.warn( 'Betta have my money!' );
+logger.error( 'Ooops! (verbose)' );
+
+console.log( '\n******************************************************\n');
+// verbose all the things
+// did I mention you could chain the calls?
+logger
+  .verbose()
+  .info( 'Here\'s some info ' )
+  .debug( 'Debugging this thang ' )
+  .warn( 'Betta have my money!' )
+  .error( 'Ooops!' );
+
+console.log( '\n' );

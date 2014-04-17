@@ -1,0 +1,16 @@
+{
+  "name": "pimp",
+  "version": "0.0.0",
+  "description": "Pretty and Intuitive Multi-level-logging Prototype",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "iStrategyLabs",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "cli-color": "~0.2.3",
+    "moment": "~2.6.0",
+    "stack-trace": "0.0.9"
+  }
+}
