@@ -4,6 +4,7 @@ var callerId = require( './lib/callerId' );
 var util = require( 'util' );
 var appName = 'App';
 var instance;
+var defaultTimeFormat = 'MM-DD-YYYY:HH:mm:ss';
 
 var Logger = function() {
 
@@ -65,9 +66,15 @@ Logger.prototype = {
   },
 
   _logIt: function( levelObj, callerData, callerArgs ) {
-    var level = '[ ' + pad( levelObj.label, this.minLength ) + ' ] ';
-    var meta = ( levelObj.verbose ) ? constructVerboseMeta( callerData, level, this.dateFormat ) : level;
-    var str = clc[ levelObj.color ].apply( clc, [ '  ' + meta ] ) + util.format.apply( this, callerArgs );
+    var level = pad( levelObj.label );
+    var meta;
+    if ( levelObj.verbose ) {
+      meta = constructVerboseMeta( callerData, level, this.dateFormat, levelObj.color );
+    } else {
+      meta = constructNonVerboseMeta( level, levelObj.color );
+    }
+
+    var str = meta + util.format.apply( this, callerArgs );
     console.log( str );
     return this;
   },
@@ -77,7 +84,6 @@ Logger.prototype = {
     var i;
 
     for ( i in this.levels ) {
-      // console.log(i)
       if ( args.length === 0 ) {
         this.levels[ i ].verbose = true;
       } else {
@@ -123,15 +129,22 @@ function pad( str, len ) {
   return str;
 }
 
-function constructVerboseMeta( caller, level, dateFormat ) {
-  var str = '[ ';
-  str += moment().format( dateFormat );
+function constructNonVerboseMeta( level, levelColor ) {
+  var c = clc[ levelColor ];
+  return c( '[ ' + level + ' ] ' );
+}
+
+function constructVerboseMeta( caller, level, dateFormat, levelColor ) {
+
+  var c = clc[ levelColor ];
+  var str = c( '[ ' );
+  str += c( moment().format( dateFormat ) );
   str += ':';
-  str += getFilename( caller.filePath );
+  str += c( getFilename( caller.filePath ) );
   str += ':';
-  str += caller.lineNumber;
-  str += ' ] ';
-  str += level;
+  str += c( caller.lineNumber );
+  str += c( ' ] ' );
+  str += c( '[ ' + level + ' ] ' );
   return str;
 }
 
