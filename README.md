@@ -1,4 +1,4 @@
-## Lovely
+## Luvely
 ###Simple, beautiful node logging for the little guy
 
 Yet another logging thing. It's logging the way I want/like to use logging. Use it, or not - whatever.

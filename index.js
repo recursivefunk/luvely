@@ -11,21 +11,37 @@ var Logger = function() {
   this.dateFormat = 'MM-DD-YYYY:HH:mm:ss';
 
   this.levels = {
+
     info: {
       label: 'INFO',
-      color: 'cyan'
+      color: 'cyan',
+      colorFunc: function(){
+        return clc[ this.color ];
+      }
     },
+
     warn: {
       label: 'WARN',
-      color: 'yellow'
+      color: 'yellow',
+      colorFunc: function(){
+        return clc[ this.color ];
+      }
     },
+
     debug: {
       label: 'DEBUG',
-      color: 'magenta'
+      color: 'magenta',
+      colorFunc: function(){
+        return clc[ this.color ];
+      }
     },
+
     error: {
       label: 'ERROR',
-      color: 'red'
+      color: 'red',
+      colorFunc: function(){
+        return clc[ this.color ];
+      }
     }
   };
 
@@ -81,37 +97,19 @@ Logger.prototype = {
 
   verbose: function() {
     var args = Array.prototype.slice.call( arguments, 0 );
-    var i;
+    this.levels = applyBehavior( 'verbose', args, this.levels );
+    return this;
+  },
 
-    for ( i in this.levels ) {
-      if ( args.length === 0 ) {
-        this.levels[ i ].verbose = true;
-      } else {
-        if ( args.indexOf( i ) > -1 ) {
-          this.levels[ i ].verbose = true;
-        } else {
-          delete this.levels[ i ].verbose;
-        }
-      }
-    }
+  json: function() {
+    var args = Array.prototype.slice.call( arguments, 0 );
+    this.levels = applyBehavior( 'json', args, this.levels );
     return this;
   },
 
   nonVerbose: function() {
     var args = Array.prototype.slice.call( arguments, 0 );
-    var i;
-
-    for ( i in this.levels ) {
-      if ( args.length === 0 ) {
-        delete this.levels[ i ].verbose;
-      } else {
-        if ( args.indexOf( i ) > -1 ) {
-          delete this.levels[ i ].verbose;
-        } else {
-          this.levels[ i ].verbose = true;
-        }
-      }
-    }
+    this.levels = unApplyBehavior( 'verbose', args, this.levels );
     return this;
   },
 
@@ -121,6 +119,40 @@ Logger.prototype = {
   }
 
 };
+
+function unApplyBehavior( behavior, args, levels ) {
+  var i;
+  for ( i in levels ) {
+    if ( args.length === 0 ) {
+      delete levels[ i ][ behavior ];
+    } else {
+      if ( args.indexOf( i ) > -1 ) {
+        delete levels[ i ][ behavior ];
+      } else {
+        levels[ i ][ behavior ] = true;
+      }
+    }
+  }
+  return levels;
+}
+
+
+function applyBehavior( behavior, args, levels ) {
+  var i;
+
+  for ( i in levels ) {
+    if ( args.length === 0 ) {
+      levels[ i ][ behavior ] = true;
+    } else {
+      if ( args.indexOf( i ) > -1 ) {
+        levels[ i ][ behavior ] = true;
+      } else {
+        delete levels[ i ][ behavior ];
+      }
+    }
+  }
+  return levels;
+}
 
 function pad( str, len ) {
   while( str.length < 5 ) {
