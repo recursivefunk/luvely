@@ -1,6 +1,6 @@
 {
   "name": "luvely",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "description": "Simple, beautiful node logging for the little guy",
   "main": "index.js",
   "scripts": {
