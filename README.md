@@ -54,4 +54,4 @@ console.log( '\n' );
 
 ![Alt text](logging-out.png "Logging Out")
 
-The above code is taken from test/test.js - run it to see PIMP in action. More features (and real tests) coming soon
+The above code is taken from test/test.js - run it to see luvely in action. More features (and real tests) coming soon
