@@ -1,16 +1,38 @@
 {
   "name": "luvely",
-  "version": "0.0.5",
-  "description": "Simple, beautiful node logging for the little guy",
+  "version": "0.9.0",
+  "description": "Lovely formatting for bunyan",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/recursivefunk/luvely.git"
   },
   "author": "Johnny Ray Austin <johnny@johnnyray.me>",
-  "license": "BSD-2-Clause",
+  "license": "MIT",
   "dependencies": {
-    "cli-color": "~0.2.3",
-    "moment": "~2.6.0",
-    "stack-trace": "0.0.9"
+    "bunyan": "^1.5.1",
+    "chalk": "^1.1.1",
+    "event-stream": "^3.3.2"
+  },
+  "bugs": {
+    "url": "https://github.com/recursivefunk/luvely/issues"
+  },
+  "homepage": "https://github.com/recursivefunk/luvely#readme",
+  "keywords": [
+    "logging",
+    "bunyan",
+    "formatted",
+    "formatting",
+    "readable"
+  ],
+  "devDependencies": {
+    "tape": "^4.4.0"
+  },
+  "engines": {
+    "npm": "3.3.3",
+    "node": "4.2.1"
   }
 }

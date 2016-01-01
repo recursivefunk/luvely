@@ -1,55 +1,78 @@
 
-var logger = require( '../index' );
+'use strict';
 
-// normal logging mode
-console.log( '\n' );
-logger.info( 'Here\'s some info ' );
-logger.debug( 'Debugging this thang ' );
-logger.warn( 'Winter is coming...' );
-logger.error( 'Ooops!' );
+const test = require('tape');
+const luvely = require('../index');
+const bunyan = require('bunyan');
 
-console.log( '\n********************************************');
-console.log( 'selectively enable verbose to some levels' );
-console.log( '********************************************\n');
-// selectively enable verbose to some levels
-logger.verbose( 'error', 'debug' );
-logger.info( 'Here\'s some info' );
-logger.debug( 'Debugging this thang (verbose)' );
-logger.warn( 'Winter is coming...' );
-logger.error( 'Ooops! (verbose)' );
+test('info works', (t) => {
+  const appName = 'myApp';
+  const luvelyStream = luvely();
 
-console.log( '\n**************************');
-console.log( 'verbose all the things');
-console.log( '**************************\n');
-// verbose all the things
-// did I mention you could chain the calls?
-logger
-  .verbose()
-  .info( 'Here\'s some info ' )
-  .debug( 'Debugging this thang ' )
-  .warn( 'Winter is coming...' )
-  .error( 'Ooops!' );
+  const log = bunyan.createLogger({
+    name: appName,
+    stream: luvelyStream,
+    level: 'trace'
+  });
 
-console.log( '\n***********************************');
-console.log( 'switch off verbose mode for info');
-console.log( '***********************************\n');
-// switch off verbose mode for info
-logger
-  .nonVerbose( 'info' )
-  .info( 'Here\'s some info ' )
-  .debug( 'Debugging this thang ' )
-  .warn( 'Winter is coming...' )
-  .error( 'Ooops!' );
+  luvelyStream.on('data', (d) => {
+    t.equal((d.indexOf('[INFO]') > -1), true);
+    t.end();
+  });
 
-console.log( '\n******************************************');
-console.log( 'switch off verbose mode for everything');
-console.log( '******************************************\n');
-// switch off verbose mode for everything
-logger
-  .nonVerbose()
-  .info( 'Here\'s some info ' )
-  .debug( 'Debugging this thang ' )
-  .warn( 'Winter is coming...' )
-  .error( 'Ooops!' );
+  log.info('hi');
+});
 
-console.log( '\n' );
+test('debug works', (t) => {
+  const appName = 'myApp';
+  const luvelyStream = luvely();
+
+  const log = bunyan.createLogger({
+    name: appName,
+    stream: luvelyStream,
+    level: 'trace'
+  });
+
+  luvelyStream.on('data', (d) => {
+    t.equal((d.indexOf('[DEBUG]') > -1), true);
+    t.end();
+  });
+
+  log.debug('hi');
+});
+
+test('error works', (t) => {
+  const appName = 'myApp';
+  const luvelyStream = luvely();
+
+  const log = bunyan.createLogger({
+    name: appName,
+    stream: luvelyStream,
+    level: 'trace'
+  });
+
+  luvelyStream.on('data', (d) => {
+    t.equal((d.indexOf('[ERROR]') > -1), true);
+    t.end();
+  });
+
+  log.error('hi');
+});
+
+test('trace works', (t) => {
+  const appName = 'myApp';
+  const luvelyStream = luvely();
+
+  const log = bunyan.createLogger({
+    name: appName,
+    stream: luvelyStream,
+    level: 'trace'
+  });
+
+  luvelyStream.on('data', (d) => {
+    t.equal((d.indexOf('[TRACE]') > -1), true);
+    t.end();
+  });
+
+  log.trace('hi');
+});

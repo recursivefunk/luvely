@@ -1,57 +1,49 @@
-## Luvely
-###Simple, beautiful node logging for the little guy
 
-Yet another logging thing. It's logging the way I want/like to use logging. Use it, or not - whatever.
+# luvely
 
-```javascript
-var logger = require( '../index' );
+A human readable format for bunyan's JSON logging.
 
-// normal logging mode
-console.log( '\n' );
-logger.info( 'Here\'s some info ' );
-logger.debug( 'Debugging this thang ' );
-logger.warn( 'Winter is coming...' );
-logger.error( 'Ooops!' );
+### Why?
+Bunyan is the best logging solution for node applications. By default, it logs everything in JSON format. It does come with a handy CLI for formatting human readable logs but it's a separate process. Luvely gives you a stream you can use IN ADDITION to your JSON logs. I highly recommend using bunyans JSON formatted logs for machine consumable purposes but machines aren't the ones reading stdout - you are. Use luvely for stdout and JSON everywhere else (files, APIs etc). You get the best of both worlds without having to pipe your process through a script.
 
-
-// selectively enable verbose to some levels
-logger.verbose( 'error', 'debug' );
-logger.info( 'Here\'s some info' );
-logger.debug( 'Debugging this thang (verbose)' );
-logger.warn( 'Winter is coming...' );
-logger.error( 'Ooops! (verbose)' );
-
-
-// verbose all the things
-// did I mention you could chain the calls?
-logger
-  .verbose()
-  .info( 'Here\'s some info ' )
-  .debug( 'Debugging this thang ' )
-  .warn( 'Winter is coming...' )
-  .error( 'Ooops!' );
-
-
-// switch off verbose mode for info
-logger
-  .nonVerbose( 'info' )
-  .info( 'Here\'s some info ' )
-  .debug( 'Debugging this thang ' )
-  .warn( 'Winter is coming...' )
-  .error( 'Ooops!' );
-
-
-// switch off verbose mode for everything
-logger
-  .nonVerbose()
-  .info( 'Here\'s some info ' )
-  .debug( 'Debugging this thang ' )
-  .warn( 'Winter is coming...' )
-  .error( 'Ooops!' );
-
-console.log( '\n' );
+### Install
+```
+$ npm install luvely --save
 ```
 
-![Alt text](logging-out.png "Logging Out")
+### Quick Start
+```javascript
+const luvely = require('luvely');
+const appName = 'myApp';
+const luvelyStream = luvely();
 
-The above code is taken from test/test.js - run it to see luvely in action. More features (and real tests) coming soon
+const log = bunyan.createLogger({
+  name: appName,
+  stream: luvelyStream,
+  level: 'trace'
+});
+```
+
+### Recommended Usage
+```javascript
+const luvely = require('luvely');  
+const appName = 'myApp';
+
+const log = bunyan.createLogger({
+  streams: [
+    {
+      level: 'info',
+      stream: luvely() // this will go to stdout for humans      
+    },
+    {
+      level: 'info',
+      stream: someFileOrThirdPartyStream() // this will be JSON for machines
+    }
+  ]
+});
+```
+
+### Tests
+```
+$ npm test
+```
