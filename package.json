@@ -1,6 +1,6 @@
 {
   "name": "luvely",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Lovely formatting for bunyan",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,6 @@
   "author": "Johnny Ray Austin <johnny@johnnyray.me>",
   "license": "MIT",
   "dependencies": {
-    "bunyan": "^1.5.1",
     "chalk": "^1.1.1",
     "event-stream": "^3.3.2"
   },
@@ -29,7 +28,8 @@
     "readable"
   ],
   "devDependencies": {
-    "tape": "^4.4.0"
+    "tape": "^4.4.0",
+    "bunyan": "^1.5.1"
   },
   "engines": {
     "npm": "3.3.3",

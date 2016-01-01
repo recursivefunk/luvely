@@ -2,9 +2,6 @@
 'use strict';
 
 const es = require('event-stream');
-const bunyan = require('bunyan');
-const chalk = require('chalk');
-const presentation = require('./lib/presentation');
 const utils = require('./lib/utils');
 
 module.exports = () => {
@@ -15,5 +12,6 @@ module.exports = () => {
   });
 
   [format, process.stdout].reduce((prev, next) => prev.pipe(next));
+
   return format;
 };
