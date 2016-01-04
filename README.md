@@ -9,6 +9,9 @@ Bunyan is the best logging solution for node applications. By default, it logs e
 ### What does it look like?
 ![example](example.png)
 
+If you enabled the bunyan `src:true` options, you'll get that information for errors and up
+![src-example](src-example.png)
+
 ### Install
 ```
 $ npm install luvely --save

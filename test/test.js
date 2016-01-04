@@ -76,3 +76,24 @@ test('trace works', (t) => {
 
   log.trace('hi');
 });
+
+test('error works with src', (t) => {
+  const appName = 'myApp';
+  const luvelyStream = luvely();
+
+  const log = bunyan.createLogger({
+    name: appName,
+    stream: luvelyStream,
+    src: true,
+    level: 'trace'
+  });
+
+  luvelyStream.on('data', (d) => {
+    t.equal((d.indexOf('@ line') > -1), true);
+    t.end();
+  });
+
+  console.log('\n')
+  log.error('oh no an error');
+  console.log('\n')
+});
