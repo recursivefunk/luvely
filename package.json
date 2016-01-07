@@ -1,6 +1,6 @@
 {
   "name": "luvely",
-  "version": "0.10.1",
+  "version": "0.10.2",
   "description": "Lovely formatting for bunyan",
   "main": "index.js",
   "scripts": {

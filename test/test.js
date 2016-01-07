@@ -12,6 +12,25 @@ test('info works', (t) => {
   const log = bunyan.createLogger({
     name: appName,
     stream: luvelyStream,
+    serializers: bunyan.stdSerializers,
+    level: 'trace'
+  });
+
+  luvelyStream.on('data', (d) => {
+    t.equal((d.indexOf('[INFO]') > -1), true);
+    t.end();
+  });
+
+  log.info('fooz');
+});
+
+test('info works', (t) => {
+  const appName = 'myApp';
+  const luvelyStream = luvely();
+
+  const log = bunyan.createLogger({
+    name: appName,
+    stream: luvelyStream,
     level: 'trace'
   });
 
